@@ -1,11 +1,15 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'maven:3.9.6-eclipse-temurin-17'
+        }
+    }
 
     stages {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/Mohamedaithammou/Projet-DevOps-aithammoumohamed'
+                    url: 'https://github.com/Mohamedaithammou/Projet-DevOps-aithammoumohamed.git'
             }
         }
 
@@ -17,7 +21,7 @@ pipeline {
 
         stage('Archive') {
             steps {
-                archiveArtifacts artifacts: 'target/*.jar'
+                archiveArtifacts artifacts: '**/target/*.jar'
             }
         }
     }
